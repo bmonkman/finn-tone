@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Finn.ai Challenge
+  title: Finn Tone API
 servers:
   - url: https://finntest.commitzero.com/v1
 paths:
@@ -9,7 +9,7 @@ paths:
   /tone/{userId}:
     get:
       summary: Get tone of a user
-      operationId: loadToneById
+      operationId: loadToneByUserId
       tags:
         - tone
       parameters:

@@ -3,6 +3,9 @@ DOCKER_IMAGE?=finn-tone-api:latest
 generate:
 	docker run -v ${PWD}:/tmp/ openapitools/openapi-generator-cli:${OPENAPI_GENERATOR_VERSION} generate -i /tmp/schema.yml -g python-flask -o /tmp/application
 
+generate-client:
+	docker run -v ${PWD}:/tmp/ openapitools/openapi-generator-cli:${OPENAPI_GENERATOR_VERSION} generate -i /tmp/schema.yml -g javascript -o /tmp/client
+
 run:
 	npm start --prefix application/
 
