@@ -18,4 +18,4 @@ def load_tone_by_id(user_id):  # noqa: E501
 
     :rtype: Tone
     """
-    return random.choice(tones)
+    return Tone(tone=random.choice(tones))
