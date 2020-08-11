@@ -1,0 +1,75 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Finn.ai Challenge
+servers:
+  - url: https://finntest.commitzero.com/v1
+paths:
+
+  /tone/{userId}:
+    get:
+      summary: Get tone of a user
+      operationId: loadToneById
+      tags:
+        - tone
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The id of the user whose tone to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tone"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /status/alive:
+    get:
+      summary: Kubernetes liveness check
+      operationId: livenessCheck
+      tags:
+        - status
+      responses:
+        '200':
+          description: Expected response to a valid request
+
+  /status/ready:
+    get:
+      summary: Kubernetes readiness check
+      operationId: readinessCheck
+      tags:
+        - status
+      responses:
+        '200':
+          description: Expected response to a valid request
+
+components:
+  schemas:
+    Tone:
+      required:
+        - tone
+      properties:
+        tone:
+          type: string
+          enum: [humorous, ironic, cynical]
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

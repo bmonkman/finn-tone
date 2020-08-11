@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tone-service
+spec:
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: tone-service
+  template:
+    metadata:
+      labels:
+        app: tone-service
+    spec:
+      containers:
+        - name: tone-service
+          image: bmonkman/finn-tone-api:latest
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 0.01
+            limits:
+              memory: 128Mi
+              cpu: 0.5
+          livenessProbe:
+            httpGet:
+              port: http
+              path: v1/status/alive
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              port: http
+              path: v1/status/ready
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+          ports:
+            - containerPort: 8080
+              name: http
