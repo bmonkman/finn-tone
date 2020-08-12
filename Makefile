@@ -7,7 +7,7 @@ generate-client:
 	docker run -v ${PWD}:/tmp/ openapitools/openapi-generator-cli:${OPENAPI_GENERATOR_VERSION} generate -i /tmp/schema.yml -g javascript -o /tmp/client
 
 run:
-	npm start --prefix application/
+	docker run -p 8080:8080 ${DOCKER_IMAGE}
 
 docs:
 	docker run -v ${PWD}:/tmp/ openapitools/openapi-generator-cli:${OPENAPI_GENERATOR_VERSION} generate -i /tmp/schema.yml -g markdown -o /tmp/docs
